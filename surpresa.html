@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Para você, Marizabel 🌹</title>
+  <style>
+    :root {
+      --primary-color: #ff5e78;
+      --secondary-color: #ff9a9e;
+      --accent-color: #fad0c4;
+      --rose-color: #e74c3c;
+      --rose-dark: #c0392b;
+      --stem-color: #2ecc71;
+      --text-color: #2c3e50;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: linear-gradient(135deg, var(--secondary-color), var(--accent-color));
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .box {
+      width: 180px;
+      height: 180px;
+      background: rgba(255, 255, 255, 0.95);
+      border: 4px solid var(--primary-color);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      position: absolute;
+      font-size: 2.5rem;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .box:hover {
+      transform: scale(1.08) rotate(5deg);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    .rose-container {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      cursor: pointer;
+      transition: all 0.5s ease;
+    }
+
+    .rose {
+      position: relative;
+      width: 120px;
+      height: 180px;
+      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .rose .petal {
+      width: 70px;
+      height: 70px;
+      background: var(--rose-color);
+      position: absolute;
+      border-radius: 50%;
+      z-index: 2;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .rose .petal:nth-child(1) {
+      top: 0;
+      left: 25px;
+      background: var(--rose-dark);
+    }
+
+    .rose .petal:nth-child(2) {
+      top: 15px;
+      left: 0;
+      transform: rotate(-30deg);
+    }
+
+    .rose .petal:nth-child(3) {
+      top: 15px;
+      left: 45px;
+      transform: rotate(30deg);
+    }
+
+    .rose .petal:nth-child(4) {
+      top: 30px;
+      left: 25px;
+    }
+
+    .rose .center {
+      width: 25px;
+      height: 25px;
+      background: #ffd700;
+      border-radius: 50%;
+      position: absolute;
+      top: 35px;
+      left: 48px;
+      z-index: 3;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .stem {
+      width: 12px;
+      height: 80px;
+      background: var(--stem-color);
+      position: absolute;
+      top: 85px;
+      left: 54px;
+      z-index: 1;
+      border-radius: 10px;
+    }
+
+    .leaf {
+      width: 30px;
+      height: 15px;
+      background: var(--stem-color);
+      border-radius: 15px;
+      position: absolute;
+      top: 110px;
+      left: 70px;
+      transform: rotate(30deg);
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .arrow {
+      display: none;
+      font-size: 2.5rem;
+      animation: bounce 1.2s ease-in-out infinite;
+      margin-top: 30px;
+      text-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+
+    .message {
+      display: none;
+      font-size: 2.5rem;
+      color: var(--text-color);
+      margin-top: 40px;
+      text-align: center;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      animation: fadeIn 2s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from { 
+        opacity: 0; 
+        transform: translateY(30px); 
+      }
+      to { 
+        opacity: 1; 
+        transform: translateY(0); 
+      }
+    }
+
+    .rose.spin {
+      animation: spin 4s ease-in-out infinite;
+      transform: scale(2);
+    }
+
+    @keyframes spin {
+      0% { transform: scale(2) rotate(0deg); }
+      50% { transform: scale(2.2) rotate(180deg); }
+      100% { transform: scale(2) rotate(360deg); }
+    }
+
+    .hearts {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .heart {
+      position: absolute;
+      font-size: 20px;
+      animation: float 4s ease-in-out infinite;
+      opacity: 0;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(100vh) scale(0);
+        opacity: 0;
+      }
+      50% {
+        opacity: 0.8;
+      }
+      100% {
+        transform: translateY(-100px) scale(1);
+        opacity: 0;
+      }
+    }
+
+    audio {
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      .box {
+        width: 150px;
+        height: 150px;
+        font-size: 2rem;
+      }
+
+      .message {
+        font-size: 2rem;
+        padding: 15px;
+        margin: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <audio id="music" autoplay loop>
+    <source src="https://www.dropbox.com/scl/fi/b3yfjhfdgb0hwx7ab8x3u/musica-romantica-sertanejo.mp3?rlkey=mgf8x6hpl6ctmow4uyzn5qj5k&raw=1" type="audio/mp3">
+  </audio>
+
+  <div class="hearts" id="hearts"></div>
+  <div class="box" id="box">🎁</div>
+
+  <div class="rose-container" id="roseContainer">
+    <div class="rose" id="rose">
+      <div class="petal"></div>
+      <div class="petal"></div>
+      <div class="petal"></div>
+      <div class="petal"></div>
+      <div class="center"></div>
+      <div class="stem"></div>
+      <div class="leaf"></div>
+    </div>
+    <div class="arrow" id="arrow">⬆️</div>
+  </div>
+
+  <div class="message" id="message">Te quero muito, Marizabel 💖</div>
+
+  <script>
+    let boxCount = 0;
+    const box = document.getElementById('box');
+    const roseContainer = document.getElementById('roseContainer');
+    const rose = document.getElementById('rose');
+    const arrow = document.getElementById('arrow');
+    const message = document.getElementById('message');
+    const music = document.getElementById('music');
+    const hearts = document.getElementById('hearts');
+
+    // Função para criar corações flutuantes
+    function createFloatingHearts() {
+      const heart = document.createElement('div');
+      heart.className = 'heart';
+      heart.innerHTML = '❤️';
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.animationDuration = (Math.random() * 2 + 3) + 's';
+      hearts.appendChild(heart);
+      
+      setTimeout(() => {
+        hearts.removeChild(heart);
+      }, 5000);
+    }
+
+    // Iniciar criação de corações
+    setInterval(createFloatingHearts, 300);
+
+    box.addEventListener('click', () => {
+      boxCount++;
+      if (boxCount < 10) {
+        // Calcula uma nova posição aleatória na tela
+        const maxX = window.innerWidth - 180; // Largura da tela menos largura da caixa
+        const maxY = window.innerHeight - 180; // Altura da tela menos altura da caixa
+        const randomX = Math.floor(Math.random() * maxX);
+        const randomY = Math.floor(Math.random() * maxY);
+        
+        // Aplica a nova posição com uma animação suave
+        box.style.transition = 'all 0.5s ease';
+        box.style.left = `${randomX}px`;
+        box.style.top = `${randomY}px`;
+        box.style.transform = `rotate(${Math.random() * 360}deg)`;
+      } else {
+        box.style.display = 'none';
+        roseContainer.style.display = 'flex';
+        arrow.style.display = 'block';
+        try {
+          music.play();
+        } catch(e) {
+          console.log('Autoplay blocked by browser');
+        }
+      }
+    });
+
+    rose.addEventListener('click', () => {
+      rose.classList.add('spin');
+      arrow.style.display = 'none';
+      setTimeout(() => {
+        message.style.display = 'block';
+        // Aumentar frequência dos corações quando a mensagem aparecer
+        setInterval(createFloatingHearts, 100);
+      }, 2000);
+    });
+  </script>
+</body>
+</html>
